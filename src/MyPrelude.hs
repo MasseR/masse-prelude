@@ -8,10 +8,12 @@ module MyPrelude
   )
   where
 
+import           Control.Applicative  as X ((<|>))
 import           Control.Monad        as X (filterM, forM, forM_, forever, join,
                                             unless, void, (<=<))
 import           Control.Monad.Reader as X (MonadReader, ReaderT (..), ask,
                                             asks, runReaderT)
+import           Data.Bifunctor       as X (bimap, first, second)
 import           Data.Bool            as X (bool)
 import           Data.Foldable        as X (foldl', for_, traverse_)
 import           Data.Int             as X (Int64)
