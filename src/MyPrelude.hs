@@ -32,7 +32,6 @@ import           GHC.Generics         as X (Generic)
 import           Prelude              as X hiding (lookup, putStrLn, readFile)
 import           UnliftIO             as X hiding (Handler)
 
-import           Data.ByteString      as X (readFile)
 import qualified Data.ByteString      as B
 import qualified Data.ByteString.Lazy as BL
 
@@ -61,8 +60,8 @@ catMaybes = concatMap F.toList
 putStrLn :: MonadIO m => Text -> m ()
 putStrLn = liftIO . T.putStrLn
 
--- | Read a file into a lazy bytestring
+-- | Read a file into a strict bytestring
 --
 -- Prefer conduits or pipes over this
-readFile :: MonadIO m => FilePath -> m LByteString
-readFile = liftIO . BL.readFile
+readFile :: MonadIO m => FilePath -> m ByteString
+readFile = liftIO . B.readFile
