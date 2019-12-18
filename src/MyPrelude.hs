@@ -5,9 +5,10 @@ module MyPrelude
   , ByteString
   , LByteString
   , note
+  , catMaybes
   , putStrLn
   , readFile
-  , catMaybes
+  , getLine
   )
   where
 
@@ -31,7 +32,7 @@ import           Data.Time            as X (Day, UTCTime (..),
                                             defaultTimeLocale, formatTime,
                                             getCurrentTime)
 import           GHC.Generics         as X (Generic)
-import           Prelude              as X hiding (lookup, putStrLn, readFile)
+import           Prelude              as X hiding (lookup, putStrLn, readFile, getLine)
 import           UnliftIO             as X hiding (Handler)
 
 import qualified Data.ByteString      as B
@@ -70,3 +71,7 @@ putStrLn = liftIO . T.putStrLn
 -- Prefer conduits or pipes over this
 readFile :: MonadIO m => FilePath -> m ByteString
 readFile = liftIO . B.readFile
+
+-- | Get a line from stdin
+getLine :: MonadIO m => m Text
+getLine = liftIO T.getLine
