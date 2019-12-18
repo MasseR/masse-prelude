@@ -11,6 +11,7 @@ module MyPrelude
   , lastMay
   , putStrLn
   , readFile
+  , writeFile
   , getLine
   , (#.)
   -- * Re-exports
@@ -43,7 +44,7 @@ import           Data.Time            as X (Day (..), UTCTime (..),
 import           GHC.Generics         as X (Generic)
 import           Numeric.Natural      as X
 import           Prelude              as X hiding (getLine, head, last, lookup,
-                                            putStrLn, readFile)
+                                            putStrLn, readFile, writeFile)
 import           UnliftIO             as X hiding (Handler)
 
 import qualified Data.ByteString      as B
@@ -77,11 +78,17 @@ catMaybes = concatMap F.toList
 putStrLn :: MonadIO m => Text -> m ()
 putStrLn = liftIO . T.putStrLn
 
--- | Read a file into a strict bytestring
+-- | Read a file into a strict 'ByteString'
 --
 -- Prefer conduits or pipes over this
 readFile :: MonadIO m => FilePath -> m ByteString
 readFile = liftIO . B.readFile
+
+-- | Write a file from a strict 'ByteString'
+--
+-- Prefer conduits or pipes over this
+writeFile :: MonadIO m => FilePath -> ByteString -> m ()
+writeFile path = liftIO . B.writeFile path
 
 -- | Get a line from stdin
 getLine :: MonadIO m => m Text
