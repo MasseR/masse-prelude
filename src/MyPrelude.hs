@@ -29,7 +29,7 @@ import           Data.Coerce          as X (Coercible, coerce)
 import           Data.Foldable        as X (asum, foldl', for_, traverse_)
 import           Data.Int             as X (Int64)
 import           Data.List            as X (intercalate, isInfixOf)
-import           Data.List.NonEmpty   (NonEmpty, head, last, nonEmpty)
+import           Data.List.NonEmpty   as X (NonEmpty, head, last, nonEmpty)
 import           Data.Map.Strict      as X (Map)
 import           Data.Maybe           as X (fromMaybe, isJust, isNothing,
                                             listToMaybe, mapMaybe)
