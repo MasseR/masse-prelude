@@ -1,6 +1,6 @@
 module MyPrelude
-  ( module X
-  , tshow
+  (
+    tshow
   , unlessM
   , ByteString
   , LByteString
@@ -11,6 +11,8 @@ module MyPrelude
   , putStrLn
   , readFile
   , getLine
+  -- * Re-exports
+  , module X
   )
   where
 
@@ -29,6 +31,7 @@ import           Data.Map.Strict      as X (Map)
 import           Data.Maybe           as X (fromMaybe, isJust, isNothing,
                                             listToMaybe, mapMaybe)
 import           Data.Set             as X (Set, member)
+import           Data.String          as X (IsString)
 import           Data.Text            as X (Text, pack, unpack)
 import           Data.Text.Encoding   as X (encodeUtf8)
 import           Data.Time            as X (Day (..), UTCTime (..),
