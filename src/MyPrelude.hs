@@ -5,6 +5,8 @@ module MyPrelude
   , ByteString
   , LByteString
   , note
+  , putStrLn
+  , readFile
   )
   where
 
