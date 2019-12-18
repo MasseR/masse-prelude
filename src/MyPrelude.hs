@@ -28,11 +28,12 @@ import           Data.Maybe           as X (fromMaybe, isJust, isNothing,
 import           Data.Set             as X (Set, member)
 import           Data.Text            as X (Text, pack, unpack)
 import           Data.Text.Encoding   as X (encodeUtf8)
-import           Data.Time            as X (Day, UTCTime (..),
+import           Data.Time            as X (Day (..), UTCTime (..),
                                             defaultTimeLocale, formatTime,
                                             getCurrentTime)
 import           GHC.Generics         as X (Generic)
-import           Prelude              as X hiding (lookup, putStrLn, readFile, getLine)
+import           Prelude              as X hiding (getLine, lookup, putStrLn,
+                                            readFile)
 import           UnliftIO             as X hiding (Handler)
 
 import qualified Data.ByteString      as B
