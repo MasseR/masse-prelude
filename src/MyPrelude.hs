@@ -7,21 +7,23 @@ module MyPrelude
   , note
   , putStrLn
   , readFile
+  , catMaybes
   )
   where
 
 import           Control.Applicative  as X ((<|>))
 import           Control.Monad        as X (filterM, forM, forM_, forever, join,
-                                            unless, void, (<=<))
+                                            unless, void, (<=<), (>=>))
 import           Control.Monad.Reader as X (MonadReader, ReaderT (..), ask,
                                             asks, runReaderT)
 import           Data.Bifunctor       as X (bimap, first, second)
 import           Data.Bool            as X (bool)
-import           Data.Foldable        as X (foldl', for_, traverse_)
+import           Data.Foldable        as X (asum, foldl', for_, traverse_)
 import           Data.Int             as X (Int64)
 import           Data.List            as X (intercalate, isInfixOf)
 import           Data.Map.Strict      as X (Map)
-import           Data.Maybe           as X (fromMaybe, isJust, isNothing)
+import           Data.Maybe           as X (fromMaybe, isJust, isNothing,
+                                            listToMaybe)
 import           Data.Set             as X (Set, member)
 import           Data.Text            as X (Text, pack, unpack)
 import           Data.Text.Encoding   as X (encodeUtf8)
