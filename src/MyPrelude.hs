@@ -21,7 +21,6 @@ import           Data.Maybe           as X (isJust, isNothing)
 import           Data.Set             as X (Set, member)
 import           Data.Text            as X (Text, pack, unpack)
 import           Data.Text.Encoding   as X (encodeUtf8)
-import           Data.Text.IO         as X (putStrLn)
 import           Data.Time            as X (Day, UTCTime (..),
                                             defaultTimeLocale, formatTime,
                                             getCurrentTime)
@@ -32,6 +31,9 @@ import           UnliftIO             as X hiding (Handler)
 import           Data.ByteString      as X (readFile)
 import qualified Data.ByteString      as B
 import qualified Data.ByteString.Lazy as BL
+
+import qualified Data.Foldable        as F
+import qualified Data.Text.IO         as T
 
 type ByteString = B.ByteString
 type LByteString = BL.ByteString
@@ -47,3 +49,16 @@ unlessM predicate act = predicate >>= \p -> unless p act
 -- | Lift a 'Maybe a' into 'Either e a'
 note :: e -> Maybe a -> Either e a
 note e = maybe (Left e) Right
+
+catMaybes :: Traversable t => t (Maybe a) -> [a]
+catMaybes = concatMap F.toList
+
+-- | 'putStrLn' with 'Text'
+putStrLn :: MonadIO m => Text -> m ()
+putStrLn = liftIO . T.putStrLn
+
+-- | Read a file into a lazy bytestring
+--
+-- Prefer conduits or pipes over this
+readFile :: MonadIO m => FilePath -> m LByteString
+readFile = liftIO . BL.readFile
