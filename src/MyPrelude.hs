@@ -36,7 +36,7 @@ import           Data.Text            as X (Text, pack, unpack)
 import           Data.Text.Encoding   as X (encodeUtf8)
 import           Data.Time            as X (Day (..), UTCTime (..),
                                             defaultTimeLocale, formatTime,
-                                            getCurrentTime)
+                                            getCurrentTime, parseTimeM)
 import           GHC.Generics         as X (Generic)
 import           Prelude              as X hiding (getLine, head, last, lookup,
                                             putStrLn, readFile)
