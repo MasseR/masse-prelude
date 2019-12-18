@@ -24,7 +24,7 @@ import           Data.Int             as X (Int64)
 import           Data.List            as X (intercalate, isInfixOf)
 import           Data.Map.Strict      as X (Map)
 import           Data.Maybe           as X (fromMaybe, isJust, isNothing,
-                                            listToMaybe)
+                                            listToMaybe, mapMaybe)
 import           Data.Set             as X (Set, member)
 import           Data.Text            as X (Text, pack, unpack)
 import           Data.Text.Encoding   as X (encodeUtf8)
