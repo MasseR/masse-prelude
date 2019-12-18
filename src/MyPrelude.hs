@@ -1,3 +1,4 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 module MyPrelude
   (
     tshow
@@ -11,6 +12,7 @@ module MyPrelude
   , putStrLn
   , readFile
   , getLine
+  , (#.)
   -- * Re-exports
   , module X
   )
@@ -23,6 +25,7 @@ import           Control.Monad.Reader as X (MonadReader, ReaderT (..), ask,
                                             asks, runReaderT)
 import           Data.Bifunctor       as X (bimap, first, second)
 import           Data.Bool            as X (bool)
+import           Data.Coerce          as X (Coercible, coerce)
 import           Data.Foldable        as X (asum, foldl', for_, traverse_)
 import           Data.Int             as X (Int64)
 import           Data.List            as X (intercalate, isInfixOf)
@@ -92,3 +95,9 @@ headMay = fmap head . nonEmpty . F.toList
 -- Note that this is partial in the sense that i's a bottom in case of an infinite structure
 lastMay :: Foldable f => f a -> Maybe a
 lastMay = fmap last . nonEmpty . F.toList
+
+-- | Coerce a value
+--
+-- See 'microlens' and 'profunctors'
+( #. ) :: Coercible c b => (b -> c) -> (a -> b) -> (a -> c)
+( #. ) _ = coerce (\x -> x :: b) :: forall a b. Coercible b a => a -> b
