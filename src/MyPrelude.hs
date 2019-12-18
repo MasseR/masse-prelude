@@ -6,6 +6,8 @@ module MyPrelude
   , LByteString
   , note
   , catMaybes
+  , headMay
+  , lastMay
   , putStrLn
   , readFile
   , getLine
@@ -22,6 +24,7 @@ import           Data.Bool            as X (bool)
 import           Data.Foldable        as X (asum, foldl', for_, traverse_)
 import           Data.Int             as X (Int64)
 import           Data.List            as X (intercalate, isInfixOf)
+import           Data.List.NonEmpty   (NonEmpty, head, last, nonEmpty)
 import           Data.Map.Strict      as X (Map)
 import           Data.Maybe           as X (fromMaybe, isJust, isNothing,
                                             listToMaybe, mapMaybe)
@@ -32,8 +35,8 @@ import           Data.Time            as X (Day (..), UTCTime (..),
                                             defaultTimeLocale, formatTime,
                                             getCurrentTime)
 import           GHC.Generics         as X (Generic)
-import           Prelude              as X hiding (getLine, lookup, putStrLn,
-                                            readFile)
+import           Prelude              as X hiding (getLine, head, last, lookup,
+                                            putStrLn, readFile)
 import           UnliftIO             as X hiding (Handler)
 
 import qualified Data.ByteString      as B
@@ -76,3 +79,13 @@ readFile = liftIO . B.readFile
 -- | Get a line from stdin
 getLine :: MonadIO m => m Text
 getLine = liftIO T.getLine
+
+-- | Get the first element of a foldable
+headMay :: Foldable f => f a -> Maybe a
+headMay = fmap head . nonEmpty . F.toList
+
+-- | Get the last element of a foldable
+--
+-- Note that this is partial in the sense that i's a bottom in case of an infinite structure
+lastMay :: Foldable f => f a -> Maybe a
+lastMay = fmap last . nonEmpty . F.toList
