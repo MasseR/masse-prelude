@@ -41,6 +41,7 @@ import           Data.Time            as X (Day (..), UTCTime (..),
                                             defaultTimeLocale, formatTime,
                                             getCurrentTime, parseTimeM)
 import           GHC.Generics         as X (Generic)
+import           Numeric.Natural      as X
 import           Prelude              as X hiding (getLine, head, last, lookup,
                                             putStrLn, readFile)
 import           UnliftIO             as X hiding (Handler)
