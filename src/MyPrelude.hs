@@ -40,7 +40,9 @@ import qualified Data.ByteString.Lazy as BL
 import qualified Data.Foldable        as F
 import qualified Data.Text.IO         as T
 
+-- | A strict bytestring
 type ByteString = B.ByteString
+-- | A lazy bytestring
 type LByteString = BL.ByteString
 
 -- | Like 'show' but with 'Text'
@@ -55,6 +57,7 @@ unlessM predicate act = predicate >>= \p -> unless p act
 note :: e -> Maybe a -> Either e a
 note e = maybe (Left e) Right
 
+-- | Catenate a traversable of maybes into a list
 catMaybes :: Traversable t => t (Maybe a) -> [a]
 catMaybes = concatMap F.toList
 
