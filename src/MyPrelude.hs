@@ -1,4 +1,5 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeFamilies        #-}
 module MyPrelude
   (
     tshow
@@ -14,6 +15,8 @@ module MyPrelude
   , writeFile
   , getLine
   , (#.)
+  -- * Monoid map
+  , MonoidMap(..)
   -- * Re-exports
   , module X
   )
@@ -52,6 +55,10 @@ import qualified Data.ByteString.Lazy as BL
 
 import qualified Data.Foldable        as F
 import qualified Data.Text.IO         as T
+
+import qualified Data.Map.Strict      as M
+
+import           GHC.Exts             (IsList (..))
 
 -- | A strict bytestring
 type ByteString = B.ByteString
@@ -109,3 +116,21 @@ lastMay = fmap last . nonEmpty . F.toList
 -- See 'microlens' and 'profunctors'
 ( #. ) :: Coercible c b => (b -> c) -> (a -> b) -> (a -> c)
 ( #. ) _ = coerce (\x -> x :: b) :: forall a b. Coercible b a => a -> b
+
+
+-- | Monoid map
+-- A containers 'Map' but with semigroup value
+
+
+newtype MonoidMap k v = MonoidMap { unMonoidMap :: Map k v }
+
+instance (Ord k, Semigroup v) => Semigroup (MonoidMap k v) where
+  MonoidMap m1 <> MonoidMap m2 = MonoidMap $ M.unionWith (<>) m1 m2
+
+instance (Ord k, Semigroup v) => Monoid (MonoidMap k v) where
+  mempty = MonoidMap mempty
+
+instance Ord k => IsList (MonoidMap k v) where
+  type Item (MonoidMap k v) = (k, v)
+  fromList = MonoidMap . M.fromList
+  toList = M.toList . unMonoidMap
