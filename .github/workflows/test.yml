@@ -8,7 +8,7 @@ jobs:
   tests:
     strategy:
       matrix:
-        channel: [18.09, 19.03, 19.09, unstable]
+        channel: [19.03, 19.09, unstable]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
