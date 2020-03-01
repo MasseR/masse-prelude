@@ -24,7 +24,7 @@ library
                      , MyPrelude.Lens
   -- other-modules:
   -- other-extensions:
-  build-depends:       base >=4.12 && <4.13
+  build-depends:       base >=4.12 && <4.14
                      , bytestring
                      , time
                      , text
